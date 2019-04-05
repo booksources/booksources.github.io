@@ -83,7 +83,7 @@
 		"ruleBookName": "//*[@property='og:novel:book_name']/@content",
 		"ruleBookAuthor": "//*[@property='og:novel:author']/@content",
 		"ruleBookKind": "//*[@property='og:novel:category']/@content",
-		"ruleBookLastChapter": "//*[@property='og:novel:latest_chapter_name']/@content<js>result.match(/(?<=\\s).*/)[0]</js>",
+		"ruleBookLastChapter": "//*[@property='og:novel:latest_chapter_name']/@content<js>result.match(/\\s(.*)/)[1]</js>",
 		"ruleCoverUrl": "//*[@property='og:image']/@content",
 		"ruleIntroduce": "//*[@property='og:description']/@content",
 		"ruleChapterUrl": "//*[@property='og:novel:read_url']/@content",
