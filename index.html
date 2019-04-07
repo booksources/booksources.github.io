@@ -9,7 +9,7 @@
 		"ruleSearchList": "//*[@class=\"all-book-list\"]//tr[td] | //*[@id=\"result-list\"]//li | //li[strong]",
 		"ruleSearchName": "//td[2]/a|//h4/a|//strong/a@put:{bid:\"//td[2]/a/@data-bid|//h4/a/@data-bid|//strong/a/@data-bid\"}",
 		"ruleSearchAuthor": "//a[contains(@href,\"author\")]/text()|//*[@class=\"rec\"]/text()",
-		"ruleSearchKind": "//td[1]/a/text()|//p[@class=\"author\"]/a[2]/text()",
+		"ruleSearchKind": "//td[1]/a/text()|//p[@class=\"author\"]/a[2]/text()|//a[@class=\"channel\"]/text()",
 		"ruleSearchLastChapter": "//a[contains(@href,\"chapter\")]/text()",
 		"ruleSearchCoverUrl": "<js>\"//bookcover.yuewen.com/qdbimg/349573/\"+@get:{bid}</js>",
 		"ruleSearchNoteUrl": "<js>\"//book.qidian.com/info/\"+@get:{bid}</js>",
