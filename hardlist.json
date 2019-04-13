@@ -1,10 +1,10 @@
 [
 	{
 		"bookSourceName": "八毛小说",
-		"bookSourceGroup": "规则复杂",
+		"bookSourceGroup": "",
 		"bookSourceUrl": "http://www.bamaoxs.com",
 		"loginUrl": "",
-		"ruleFindUrl": "<js>(function () { var pagestr = java.ajax('http://www.bamaoxs.com'); var mlist = []; pagestr.match(/\\<a.*?date.*?\\d+.*?a\\>/g).forEach(function (link) { mlist.push(link.match(/\\>(.*?)\\</)[1] + '::' + link.match(/http.*?\\d+/)[0]); }); return mlist.join('\\n'); })()</js>",
+		"ruleFindUrl": "<js>(function () { var pagestr = java.ajax('http://www.bamaoxs.com/'); var mlist = []; pagestr.match(/\\<a.*?date.*?\\d+.*?a\\>/g).forEach(function (link) { mlist.push(link.match(/\\>(.*?)\\</)[1] + '::' + link.match(/http.*?\\d+/)[0] + '&page=searchPage'); }); return mlist.join('\\n'); })()</js>",
 		"ruleSearchUrl": "/search.asp?key=searchKey|char=gbk",
 		"ruleSearchList": "//tr[td[@class=\"m11\"]]|//*[@class=\"m9\"]",
 		"ruleSearchName": "//*[@class=\"m11\"]/a/text()|//img/@alt",
@@ -28,7 +28,7 @@
 		"ruleContentUrlNext": "",
 		"ruleBookContent": "<js>result.replace(/\\<img.*?\\/(.*?)\\.jpg.\\>/g,'$1')</js>//*[@class=\"content\"]",
 		"httpUserAgent": "",
-		"enable": false,
+		"enable": true,
 		"serialNumber": 0,
 		"weight": 0
 	}
