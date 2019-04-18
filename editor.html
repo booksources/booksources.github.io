@@ -3,11 +3,14 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>书源编辑器v2.0</title>
+	<title>书源编辑器v2.1</title>
 	<style>
-		body {
+		body,
+		.rules,
+		.outbox {
 			display: flex;
-			flex-direction: column;
+			flex-flow: column;
+			flex: 1;
 		}
 
 		.editor {
@@ -17,7 +20,6 @@
 		}
 
 		.rules {
-			flex: 1;
 			min-width: 40em;
 		}
 
@@ -32,25 +34,19 @@
 			margin: 1px 0;
 		}
 
-		.outbox {
-			display: flex;
-			flex-flow: column;
-			flex: 1;
-		}
-
 		#RuleJsonString {
 			margin: 1px 0 0 0;
 		}
 
 		.menu {
 			display: flex;
-			flex-direction: column;
+			flex-flow: column;
 			justify-content: center;
 			margin: 0 5px;
 		}
 
 		button {
-			margin: 1px;
+			margin: 5px 1px;
 		}
 	</style>
 </head>
@@ -183,21 +179,86 @@
 			</p>
 		</div>
 		<div class="menu">
-			<button id="editor" title="编辑书源"><b>&lt;=</b></button>
-			<button id="submit" title="生成书源"><b>=&gt;</b></button>
+			<button id="editor" title="编辑书源">⋘</button>
+			<button id="conver" title="生成书源">⋙</button>
+			<button id="clear" title="清空书源">✗</button>
+			<button id="undo" title="撤销操作">⤣</button>
+			<button id="redo" title="重做操作">⤤</button>
+			<button id="accept" title="保存书源">✓</button>
 		</div>
 		<div class="outbox">
-			<p><b>书源JSON</b></p>
+			<p><b>书源JSON</b><a>保存到本地</a></p>
 			<textarea id="RuleJsonString" placeholder="这里输出序列化的JSON数据,可直接导入'阅读'APP"></textarea>
 		</div>
 	</div>
-	<div>
-		<a href="https://zhuanlan.zhihu.com/p/29436838">Xpath使用教程(基础)</a>
-		<br />
-		<a href="https://zhuanlan.zhihu.com/p/32187820">Xpath使用教程(高级)</a>
+	<div class="menu">
+		<a href="https://gedoor.github.io/MyBookshelf/sourcerule.html">官方书源教程</a>
+		<a href="https://zhuanlan.zhihu.com/p/29436838">Xpath基础教程</a>
+		<a href="https://zhuanlan.zhihu.com/p/32187820">Xpath高级教程</a>
 	</div>
 </body>
 <script language="javascript">
+	// 定义简化函数
+	function dQuery(selector) {
+		return document.querySelector(selector)
+	}
+	function dQueryAll(selector) {
+		return document.querySelectorAll(selector)
+	}
+	function rule2json() {
+		Object.keys(RuleJSON).forEach((key) => { RuleJSON[key] = dQuery('#' + key).value; });
+		RuleJSON['serialNumber'] = RuleJSON['serialNumber'] == '' ? 0 : parseInt(RuleJSON['serialNumber']);
+		RuleJSON['weight'] = RuleJSON['weight'] == '' ? 0 : parseInt(RuleJSON['weight']);
+		RuleJSON['enable'] = RuleJSON['enable'] == '' || RuleJSON['enable'].toLocaleLowerCase().replace(/^\s*|\s*$/g, '') == 'true';
+		return RuleJSON;
+	}
+	function json2rule(RuleEditor) {
+		Object.keys(RuleEditor).forEach((key) => { dQuery("#" + key).value = RuleEditor[key] });
+	}
+	// 记录操作过程
+	var course = {};
+	if (localStorage.getItem('course') == null) {
+		course = { "old": [], "now": rule2json(), "new": [] };
+		window.localStorage.setItem('course', JSON.stringify(course));
+	}
+	else {
+		course = JSON.parse(localStorage.getItem('course'));
+		json2rule(course['now']);
+	}
+	function todo() {
+		course['old'].push(Object.assign({}, course['now']));
+		course['now'] = rule2json();
+		course['new'] = [];
+		if (course['old'].length > 50) course['old'].shift(); // 限制历史记录堆栈大小
+		localStorage.setItem('course', JSON.stringify(course));
+	}
+	function undo() {
+		course = JSON.parse(localStorage.getItem('course'));
+		if (course['old'].length > 0) {
+			course['new'].push(course['now']);
+			course['now'] = course['old'].pop();
+			localStorage.setItem('course', JSON.stringify(course));
+			json2rule(course['now']);
+		}
+	}
+	function redo() {
+		course = JSON.parse(localStorage.getItem('course'));
+		if (course['new'].length > 0) {
+			course['old'].push(course['now']);
+			course['now'] = course['new'].pop();
+			localStorage.setItem('course', JSON.stringify(course));
+			json2rule(course['now']);
+		}
+	}
+	dQueryAll('input').forEach((item) => { item.addEventListener('change', () => { todo() }) });
+	dQueryAll('textarea').forEach((item) => { item.addEventListener('change', () => { todo() }) });
+	dQuery('#undo').addEventListener('click', () => { undo() });
+	dQuery('#redo').addEventListener('click', () => { redo() });
+	dQuery('#clear').addEventListener('click', () => {
+		Object.keys(RuleJSON).forEach((key) => { dQuery('#' + key).value = ''; });
+		todo();
+	})
+	// 处理规则内容
 	var RuleJSON = {
 		"bookSourceName": "",
 		"bookSourceGroup": "",
@@ -231,21 +292,29 @@
 		"weight": 0,
 		"enable": true
 	};
-
-	document.querySelector("#submit").addEventListener('click', () => {
-		Object.keys(RuleJSON).forEach((key) => { RuleJSON[key] = document.querySelector('#' + key).value; });
-		RuleJSON['serialNumber'] = RuleJSON['serialNumber'] == '' ? 0 : parseInt(RuleJSON['serialNumber']);
-		RuleJSON['weight'] = RuleJSON['weight'] == '' ? 0 : parseInt(RuleJSON['weight']);
-		RuleJSON['enable'] = RuleJSON['enable'] == '' || RuleJSON['enable'].toLocaleLowerCase().replace(/^\s*|\s*$/g, '') == 'true' ? true : false;
-		document.querySelector("#RuleJsonString").value = JSON.stringify(RuleJSON, null, 4);
+	dQuery('#conver').addEventListener('click', () => {
+		dQuery('#RuleJsonString').value = JSON.stringify(rule2json(), null, 4);;
 	});
-
-	document.querySelector("#editor").addEventListener('click', () => {
-		if (document.querySelector("#RuleJsonString").innerHTML == null) return;
-		let RuleEditor = JSON.parse(document.querySelector("#RuleJsonString").value);
-		Object.keys(RuleEditor).forEach((key) => { document.querySelector("#" + key).value = RuleEditor[key] });
+	dQuery('#editor').addEventListener('click', () => {
+		if (dQuery('#RuleJsonString').value == '') return;
+		json2rule(JSON.parse(dQuery('#RuleJsonString').value));
+		todo();
 	});
-
+	// 提交规则数据
+	function HttpPost(url, data) {
+		return fetch(url, {
+			body: JSON.stringify(data),
+			method: 'POST',
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		}).then(res => res.json())
+			.catch(err => console.error('Error:', err))
+			.then(rep => console.log('Success:', rep));
+	}
+	dQuery('#accept').addEventListener('click', () => {
+		console.log(HttpPost(window.location.origin, rule2json()));
+	});
 </script>
 
 </html>
