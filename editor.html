@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>书源编辑器v2.1</title>
+	<title>书源编辑器v2.2</title>
 	<style>
 		body,
 		.rules,
@@ -182,8 +182,8 @@
 			<button id="editor" title="编辑书源">⋘</button>
 			<button id="conver" title="生成书源">⋙</button>
 			<button id="clear" title="清空书源">✗</button>
-			<button id="undo" title="撤销操作">⤣</button>
-			<button id="redo" title="重做操作">⤤</button>
+			<button id="undo" title="撤销操作">↶</button>
+			<button id="redo" title="重做操作">↷</button>
 			<button id="accept" title="保存书源">✓</button>
 		</div>
 		<div class="outbox">
@@ -198,6 +198,40 @@
 	</div>
 </body>
 <script language="javascript">
+	// 定义规则对象
+	var RuleJSON = {
+		"bookSourceName": "",
+		"bookSourceGroup": "",
+		"bookSourceUrl": "",
+		"loginUrl": "",
+		"ruleFindUrl": "",
+		"ruleSearchUrl": "",
+		"ruleSearchList": "",
+		"ruleSearchName": "",
+		"ruleSearchAuthor": "",
+		"ruleSearchKind": "",
+		"ruleSearchLastChapter": "",
+		"ruleSearchCoverUrl": "",
+		"ruleSearchNoteUrl": "",
+		"ruleBookUrlPattern": "",
+		"ruleBookName": "",
+		"ruleBookAuthor": "",
+		"ruleBookKind": "",
+		"ruleBookLastChapter": "",
+		"ruleIntroduce": "",
+		"ruleCoverUrl": "",
+		"ruleChapterUrl": "",
+		"ruleChapterList": "",
+		"ruleChapterUrlNext": "",
+		"ruleChapterName": "",
+		"ruleContentUrl": "",
+		"ruleBookContent": "",
+		"ruleContentUrlNext": "",
+		"httpUserAgent": "",
+		"serialNumber": 0,
+		"weight": 0,
+		"enable": true
+	};
 	// 定义简化函数
 	function dQuery(selector) {
 		return document.querySelector(selector)
@@ -259,39 +293,6 @@
 		todo();
 	})
 	// 处理规则内容
-	var RuleJSON = {
-		"bookSourceName": "",
-		"bookSourceGroup": "",
-		"bookSourceUrl": "",
-		"loginUrl": "",
-		"ruleFindUrl": "",
-		"ruleSearchUrl": "",
-		"ruleSearchList": "",
-		"ruleSearchName": "",
-		"ruleSearchAuthor": "",
-		"ruleSearchKind": "",
-		"ruleSearchLastChapter": "",
-		"ruleSearchCoverUrl": "",
-		"ruleSearchNoteUrl": "",
-		"ruleBookUrlPattern": "",
-		"ruleBookName": "",
-		"ruleBookAuthor": "",
-		"ruleBookKind": "",
-		"ruleBookLastChapter": "",
-		"ruleIntroduce": "",
-		"ruleCoverUrl": "",
-		"ruleChapterUrl": "",
-		"ruleChapterList": "",
-		"ruleChapterUrlNext": "",
-		"ruleChapterName": "",
-		"ruleContentUrl": "",
-		"ruleBookContent": "",
-		"ruleContentUrlNext": "",
-		"httpUserAgent": "",
-		"serialNumber": 0,
-		"weight": 0,
-		"enable": true
-	};
 	dQuery('#conver').addEventListener('click', () => {
 		dQuery('#RuleJsonString').value = JSON.stringify(rule2json(), null, 4);;
 	});
