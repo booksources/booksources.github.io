@@ -176,7 +176,7 @@ dQuery('.menu').addEventListener('click', e => {
 		case 'pull':
 			showTab('书源列表');
 			(async () => {
-				HttpGet(`/getSources`).then(json => {
+				await HttpGet(`/getSources`).then(json => {
 					if (json.isSuccess) {
 						dQuery('#RuleList').innerHTML = ''
 						localStorage.setItem('ruleSources', JSON.stringify(ruleSources = json.data));
@@ -215,6 +215,7 @@ dQuery('.menu').addEventListener('click', e => {
 		case 'debug':
 			showTab('调试书源');
 			let wsHost = (hashParam('domain') || location.host).replace(/.*\//, '').split(':');
+			function DebugPrint(msg) { dQuery('#DebugConsole').value += `\n${msg}` }
 			(async () => {
 				let editRule = rule2json();
 				let sResult = await HttpPost(`/saveSource`, editRule);
@@ -227,23 +228,23 @@ dQuery('.menu').addEventListener('click', e => {
 					};
 					ws.onmessage = (msg) => {
 						if (msg.data == 'finish') {
-							dQuery('#DebugConsole').value += `\n成功完成调试任务!`;
+							DebugPrint(`成功完成调试任务!`);
 						} else {
-							dQuery('#DebugConsole').value += `\n${msg.data}`;
+							DebugPrint(msg.data);
 						}
 					};
 					ws.onerror = (err) => {
-						dQuery('#DebugConsole').value += `\n调试失败:\n${err.data}`;
+						DebugPrint(err.data);
 					}
 					ws.onclose = () => {
 						e.target.setAttribute('class', '');
 					}
 				} else {
-					dQuery('#DebugConsole').value += `\n保存书源失败,调试中止!\nErrorMsg: ${sResult.errorMsg}`;
+					DebugPrint(`保存书源失败,调试中止!\nErrorMsg: ${sResult.errorMsg}`);
 					e.target.setAttribute('class', '');
 				}
 			})().catch(err => {
-				dQuery('#DebugConsole').value += `\n调试过程意外中止，以下是详细错误信息:\n${err}`;
+				DebugPrint(`调试过程意外中止，以下是详细错误信息:\n${err}`);
 				e.target.setAttribute('class', '');
 			});
 			return;
