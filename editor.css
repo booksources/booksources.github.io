@@ -105,7 +105,7 @@ textarea {
 .tabbody>.this {
 	display: flex;
 }
-.tabbody>*>* {
+.tabbody>*>.context {
 	flex: 1;
 	flex-flow: column;
 	border: 0;

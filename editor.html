@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>书源编辑器v3.5</title>
+	<title>书源编辑器v3.6</title>
 	<link rel="stylesheet" type="text/css" href="/editor.css" />
 </head>
 
@@ -142,15 +142,24 @@
 			</div>
 		</div>
 		<div class="menu">
-			<svg class="button"><text x="50%" y="55%">⇈推送书源</text><rect id="push"/></svg>
-			<svg class="button"><text x="50%" y="55%">⇊拉取书源</text><rect id="pull"/></svg>
-			<svg class="button"><text x="50%" y="55%">⋘编辑书源</text><rect id="editor"/></svg>
-			<svg class="button"><text x="50%" y="55%">⋙生成书源</text><rect id="conver"/></svg>
-			<svg class="button"><text x="50%" y="55%">✗清空表单</text><rect id="initial"/></svg>
-			<svg class="button"><text x="50%" y="55%">↶撤销操作</text><rect id="undo"/></svg>
-			<svg class="button"><text x="50%" y="55%">↷重做操作</text><rect id="redo"/></svg>
-			<svg class="button"><text x="50%" y="55%">⇏调试书源</text><rect id="debug"/></svg>
-			<svg class="button"><text x="50%" y="55%">✓保存书源</text><rect id="accept"/></svg>
+			<svg class="button"><text x="50%" y="55%">⇈推送书源</text>
+				<rect id="push" /></svg>
+			<svg class="button"><text x="50%" y="55%">⇊拉取书源</text>
+				<rect id="pull" /></svg>
+			<svg class="button"><text x="50%" y="55%">⋘编辑书源</text>
+				<rect id="editor" /></svg>
+			<svg class="button"><text x="50%" y="55%">⋙生成书源</text>
+				<rect id="conver" /></svg>
+			<svg class="button"><text x="50%" y="55%">✗清空表单</text>
+				<rect id="initial" /></svg>
+			<svg class="button"><text x="50%" y="55%">↶撤销操作</text>
+				<rect id="undo" /></svg>
+			<svg class="button"><text x="50%" y="55%">↷重做操作</text>
+				<rect id="redo" /></svg>
+			<svg class="button"><text x="50%" y="55%">⇏调试书源</text>
+				<rect id="debug" /></svg>
+			<svg class="button"><text x="50%" y="55%">✓保存书源</text>
+				<rect id="accept" /></svg>
 		</div>
 		<div class="outbox">
 			<div class="tabbox">
@@ -162,16 +171,19 @@
 				</div>
 				<div class="tabbody">
 					<div class="tab1 this">
-						<textarea id="RuleJsonString" placeholder="这里输出序列化的JSON数据,可直接导入'阅读'APP"></textarea>
+						<textarea class="context" id="RuleJsonString"
+							placeholder="这里输出序列化的JSON数据,可直接导入'阅读'APP"></textarea>
 					</div>
 					<div class="tab2">
-						<textarea id="DebugConsole" placeholder="这里用于输出调试信息"></textarea>
+						<textarea class="context" id="DebugConsole" placeholder="这里用于输出调试信息"></textarea>
 					</div>
 					<div class="tab3">
-						<div id="RuleList"></div>
+						<div class="titlebar" style="display: none;" tip="这个坑暂时保留,后续考虑是否要做">
+							<button>导入书源文件</button><button>导出书源文件</button><button>删除选中书源</button></div>
+						<div class="context" id="RuleList"></div>
 					</div>
 					<div class="tab4">
-						<div class="link">
+						<div class="context link">
 							<a target="_blank" href="https://gedoor.github.io/MyBookshelf/sourcerule.html">官方书源教程</a>
 							<a target="_blank" href="https://zhuanlan.zhihu.com/p/29436838">Xpath基础教程</a>
 							<a target="_blank" href="https://zhuanlan.zhihu.com/p/32187820">Xpath高级教程</a>
@@ -183,4 +195,5 @@
 	</div>
 	<script type="text/javascript" src="/editor.js"></script>
 </body>
+
 </html>
