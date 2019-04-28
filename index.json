@@ -23,7 +23,7 @@
 		"ruleChapterUrl": "<js>'https://druid.if.qidian.com/argus/api/v1/chapterlist/chapterlist?bookId=@get:{bid}'</js>",
 		"ruleChapterList": "@json:$.Data.Chapters[1:]",
 		"ruleChapterUrlNext": "",
-		"ruleChapterName": "V{$.V}&&{$.N}<js>result.replace(/V0/,'').replace(/V\\d+/,'🔒')</js>",
+		"ruleChapterName": "{$.V}V&&{$.N}<js>result.replace(/V0/,'').replace(/\\d+?V/,'🔒')</js>",
 		"ruleContentUrl": "https://vipreader.qidian.com/chapter/@get:{bid}/{$.C}",
 		"ruleBookContent": "//*[@class=\"read-content j_readContent\"]",
 		"ruleContentUrlNext": "",
