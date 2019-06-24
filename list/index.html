@@ -1,1 +1,53 @@
-test
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>阅读书源</title>
+</head>
+
+<body>
+	<pre class="content" style="word-wrap: break-word; white-space: pre-wrap;">
+	</pre>
+	<script>
+		// 记录书源规则列表
+		const SourceList = [
+			'biqudao_com',
+			'x23qb_com'
+		];
+		// 创建sleep方法(用于async/await的延时处理)
+		function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+		// 创建选择器的简化写法
+		function dQuery(selector) {
+			return document.querySelector(selector);
+		}
+		function dQueryAll(selector) {
+			return document.querySelectorAll(selector);
+		}
+		// 载入书源规则数据
+		async function GetSrcJson(path) {
+			path += '.json';
+			try {
+				const response = await fetch(path);
+				const json = await response.json();
+				// 成功:返回json;失败:返回空对象
+				return json ? json : {};
+			}
+			catch (error) {
+				console.log(error);
+				return {};	// 错误:返回空对象
+			}
+		}
+		// 拼接书源规则
+		(async () => {
+			let srcList = [];
+			for (let i = 0, n = SourceList.length; i < n; ++i) {
+				let srcJson = await GetSrcJson(SourceList[i]);
+				srcList.push(srcJson);
+			}
+			dQuery('.content').innerHTML = JSON.stringify(srcList, null, 4);
+		})();
+	</script>
+</body>
+
+</html>
