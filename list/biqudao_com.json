@@ -12,7 +12,7 @@
 	"ruleFindIntroduce": "",
 	"ruleFindCoverUrl": "",
 	"ruleFindNoteUrl": "",
-	"ruleSearchUrl": "https://www.biqudao.com/searchbook.php?keyword=searchKey&page=1",
+	"ruleSearchUrl": "https://www.biqudao.com/searchbook.php?keyword=searchKey&page=searchPage",
 	"ruleBookUrlPattern": "",
 	"ruleSearchList": "//*[@class=\"novelslist2\"]//li[position()>1]",
 	"ruleSearchName": "//*[@class=\"s2\"]/a/text()",
