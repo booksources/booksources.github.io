@@ -12,23 +12,13 @@
 	<script>
 		// 记录书源规则列表
 		const SourceList = [
-			'biqudao_com',
-			'x23qb_com'
+			'biqudao_com.json',
+			'x23qb_com.json'
 		];
-		// 创建sleep方法(用于async/await的延时处理)
-		function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-		// 创建选择器的简化写法
-		function dQuery(selector) {
-			return document.querySelector(selector);
-		}
-		function dQueryAll(selector) {
-			return document.querySelectorAll(selector);
-		}
 		// 载入书源规则数据
-		async function GetSrcJson(path) {
-			path += '.json';
+		async function GetSrcJson(file) {
 			try {
-				const response = await fetch(path);
+				const response = await fetch(file);
 				const json = await response.json();
 				// 成功:返回json;失败:返回空对象
 				return json ? json : {};
@@ -45,7 +35,7 @@
 				let srcJson = await GetSrcJson(SourceList[i]);
 				srcList.push(srcJson);
 			}
-			dQuery('.content').innerHTML = JSON.stringify(srcList, null, 4);
+			document.querySelector('.content').innerHTML = JSON.stringify(srcList, null, 4);
 		})();
 	</script>
 </body>
