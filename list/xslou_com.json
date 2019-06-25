@@ -1,6 +1,6 @@
 {
 	"bookSourceName": "小说楼",
-	"bookSourceGroup": "Xpath+正则",
+	"bookSourceGroup": "Xpath",
 	"bookSourceUrl": "https://www.xslou.com",
 	"loginUrl": "",
 	"ruleFindUrl": "",
