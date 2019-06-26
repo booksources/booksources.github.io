@@ -1,6 +1,6 @@
 {
 	"bookSourceName": "小说楼",
-	"bookSourceGroup": "Xpath",
+	"bookSourceGroup": "Xpath+正则",
 	"bookSourceUrl": "https://www.xslou.com",
 	"loginUrl": "",
 	"ruleFindUrl": "",
@@ -35,7 +35,7 @@
 	"ruleChapterName": "//text()",
 	"ruleContentUrl": "//@href<js>result.replace(\"a.html\",\".html\")</js>",
 	"ruleBookContent": "//*[@id=\"booktext\"]<js>result.replace(/(☆.)+(☆?)|『[^『』]+』|手机阅读请访问[^<]*无弹窗在线阅读/g,'')</js>",
-	"ruleContentUrlNext": "",
+	"ruleContentUrlNext": "//a[text()=\"下一章\"]/@href",
 	"httpUserAgent": "",
 	"serialNumber": 0,
 	"weight": 0,
