@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		#menuPanel {
+			display: flex;
+			flex-direction: column;
+			position: fixed;
+			background: #FFF;
+			outline: 2px #CCC solid;
+			margin: 20px;
+			padding: 5px;
+			top: 0px;
+			right: 0px;
+			width: 30em;
+		}
+
+		.title {
+			display: flex;
+			z-index: 1;
+			width: 100%;
+			border-bottom: 1px solid #DDD;
+		}
+
+		.title>div {
+			cursor: pointer;
+			padding: 1px 10px 0 10px;
+			border-bottom: 3px solid transparent;
+			font-weight: bold;
+			color: #888;
+		}
+
+		.title>div:hover {
+			color: #F70;
+		}
+
+		.title>.tx {
+			position: absolute;
+			right: 0px;
+			line-height: 18px;
+			font-size: 36px;
+		}
+
+		.title>.tx:hover {
+			color: #F00;
+		}
+
+		.t1>.title>.t1,
+		.t2>.title>.t2,
+		.t3>.title>.t3,
+		.t4>.title>.t4 {
+			color: #4f9da6;
+			border-bottom-color: #4EBBE4;
+		}
+
+		.panel {
+			display: flex;
+			height: 600px;
+		}
+
+		.panel>* {
+			display: none;
+		}
+
+		.t1>.panel>.t1,
+		.t2>.panel>.t2,
+		.t3>.panel>.t3,
+		.t4>.panel>.t4 {
+			display: flex;
+			flex-direction: column;
+		}
+
+		td>* {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0px;
+			min-height: 17px;
+			min-width:  17px;
+		}
+		label{
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="menuPanel" class="t1">
+		<div class="title">
+			<div class="t1">智能回复</div>
+			<div class="t2">星标消息</div>
+			<div class="t3">定时任务</div>
+			<div class="t4">关于插件</div>
+			<div class="tx">×</div>
+		</div>
+		<div class="panel">
+			<div class="t1">
+				<table>
+					<tr>
+						<td><label>匹配格式</label></td>
+						<td><label>回复类型</label></td>
+						<td><label>回复内容</label></td>
+						<td><label>星标</label></td>
+						<td><button>+</button></td>
+					</tr>
+					<tr>
+						<td><textarea cols="20" rows="1" placeholder="regex or string"></textarea></td>
+						<td>
+							<select style="width: 6em">
+								<option value="Rich">图文消息</option>
+								<option value="Text" selected>文字消息</option>
+								<option value="Image">图片消息</option>
+								<option value="Vioce">语音消息</option>
+								<option value="Video">视频消息</option>
+							</select></td>
+						<td><textarea cols="20" rows="1" placeholder="message or appmsgid"></textarea></td>
+						<td>
+							<select style="width: 3em">
+								<option value="false">否</option>
+								<option value="true">是</option>
+							</select></td>
+						</td>
+						<td><button>×</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="t2">等待开发</div>
+			<div class="t3">等待开发</div>
+			<div class="t4">等待开发</div>
+		</div>
+	</div>
+</body>
+
+</html>
