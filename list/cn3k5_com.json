@@ -29,7 +29,7 @@
 	"ruleBookLastChapter": "",
 	"ruleIntroduce": "//*[@id=\"bookintro\"]",
 	"ruleCoverUrl": "",
-	"ruleChapterUrl": "//*[@id=\"reader\"]/a/@href",
+	"ruleChapterUrl": "<js>baseUrl.replace(/.*?book\\/(\\d*?)(\\d{1,3}).html/, '/$1/$1$2/').replace('//','/0/')</js>",
 	"ruleChapterUrlNext": "",
 	"ruleChapterList": ":\\s<li><a href=[\"']([^\"']+)[\"'][^>]*>([^<]+)",
 	"ruleChapterName": "$2",
