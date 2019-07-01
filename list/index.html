@@ -40,7 +40,7 @@
 				let srcJson = await GetSrcJson(SourceList[i]);
 				srcList.push(srcJson);
 			}
-			document.querySelector('.content').innerHTML = JSON.stringify(srcList, null, 4);
+			document.querySelector('.content').innerText = JSON.stringify(srcList, null, 4);
 		})();
 	</script>
 </body>
