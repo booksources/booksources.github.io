@@ -34,7 +34,7 @@
 	"ruleChapterList": ":<a\\s*href=\"(\\d+.html)[^>]*>([^<]*)",
 	"ruleChapterName": "$2",
 	"ruleContentUrl": "$1",
-	"ruleBookContent": "@css:#contents@html##顶[\\s点小说]+[^<]*",
+	"ruleBookContent": "@css:#contents@textNodes##顶[\\s点小说]+[^\\n]*",
 	"ruleContentUrlNext": "",
 	"httpUserAgent": "",
 	"serialNumber": 0,
