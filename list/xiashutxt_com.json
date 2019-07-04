@@ -34,7 +34,7 @@
 	"ruleChapterList": "+<js>\nvar chapters = [];\nvar regex = /<a\\s*href=\"(\\/\\d+\\/read_\\d.html)\"[^\"]+\"([^\"]*)/g;\nvar match;\nwhile ((match = regex.exec(result)) != null) {\n\tchapters.push({ k: match[1], v: match[2] });\n}\nvar getCount = result.match(/latest_chapter_url[^_]+_(\\d+)/)[1] - chapters[chapters.length - 1].k.match(/read_(\\d)/)[1];\nif (getCount > 0) {\n\tvar link = 'https://www.xiashutxt.com/api/ajax/zj?id=' + baseUrl.match(/\\d+/)[0] + '&num=' + getCount + '&order=asc';\n\tvar req = java.ajax(link);\n\tregex = /href=\"([^\"]*)[^=]*=\"[^\"]*/g;\n\twhile ((match = regex.exec(req)) != null) {\n\t\tchapters.push({ k: match[1], v: match[2] });\n\t}\n}\nchapters\n</js>",
 	"ruleChapterName": "v",
 	"ruleContentUrl": "k",
-	"ruleBookContent": "//*[@class=\"content\"]<js>result.replace(/<script.*?script>/g,'')</js>",
+	"ruleBookContent": "@css:.content@textNodes",
 	"ruleContentUrlNext": "",
 	"httpUserAgent": "",
 	"serialNumber": 1,
